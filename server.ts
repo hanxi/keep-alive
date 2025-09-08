@@ -5,13 +5,24 @@ import path from "path";
 // 歌曲平台模块目录
 const MUSIC_FREE_DIR = path.resolve("Music_Free");
 
+const platformShort = {
+  "xiaogou.js": "kg",
+  "xiaomi.js": "migu",
+  "xiaoqiu.js": "tx",
+  "xiaowo.js": "kw",
+  "xiaoyun.js": "wy",
+};
+
 async function loadPlatforms() {
   const files = readdirSync(MUSIC_FREE_DIR).filter(f => f.endsWith(".js"));
   const platforms = [];
   for (const file of files) {
     try {
       const mod = await import(path.resolve(MUSIC_FREE_DIR, file));
+      const short = platformShort[file];
       platforms.push({
+        short: short,
+        file: file,
         name: mod.default.platform,
         hints: mod.default.hints?.importMusicSheet || [],
         importMusicSheet: mod.default.importMusicSheet,
@@ -40,15 +51,6 @@ async function parseJsonBody(req: Request) {
     return {};
   }
 }
-
-let platformShort: map<string, string> = {
-  "小枸音乐": "kg",
-  "小蜜音乐": "migu",
-  "小秋音乐": "tx",
-  "小蜗音乐": "kw",
-  "小芸音乐": "wy",
-};
-
 
 // 从环境变量读取端口，默认 53000
 const PORT = process.env.PORT || 53000;
@@ -81,8 +83,8 @@ serve({
         });
       }
       try {
+        const platform_code = p.short;
         const res = await p.importMusicSheet(urlLike);
-        const platform_code = platformShort[platform];
         let musics = [];
         for (const item of res) {
           const id = item.songmid || item.id;
