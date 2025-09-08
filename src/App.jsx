@@ -58,7 +58,7 @@ export default function PlaylistExporter() {
       <div
         className="
         w-full
-        max-w-md
+        max-w-screen-lg
         mx-auto
         p-4
         bg-white
@@ -68,7 +68,10 @@ export default function PlaylistExporter() {
         sm:p-6
         sm:space-y-8
       "
-        style={{ marginTop: 0 }}
+        style={{
+          marginTop: 0,
+          minWidth: "320px",
+        }}
       >
         <h2 className="text-lg sm:text-xl font-bold mb-2 text-center">
           歌单导出工具
