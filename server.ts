@@ -91,6 +91,7 @@ serve({
           musics.push({
             name: `${item.artist}-${item.title}`,
             url: `https://lxmusicapi.onrender.com/url/${platform_code}/${id}/320k`,
+            api: true,
             headers: {
               "X-Request-Key": "share-v2"
             }
