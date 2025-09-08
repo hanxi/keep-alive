@@ -5,7 +5,7 @@ export default function PlaylistExporter() {
   const [selected, setSelected] = useState("");
   const [hint, setHint] = useState([]);
   const [urlLike, setUrlLike] = useState("");
-  const [fileNameBase, setFileNameBase] = useState("playlist");
+  const [fileNameBase, setFileNameBase] = useState("网络歌单");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -33,17 +33,18 @@ export default function PlaylistExporter() {
     if (!selected || !urlLike) return;
     setLoading(true);
     try {
+      const name = fileNameBase || "网络歌单";
       const res = await fetch("/export", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ platform: selected, urlLike }),
+        body: JSON.stringify({ platform: selected, urlLike, name }),
       });
       if (!res.ok) throw new Error(await res.text());
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = (fileNameBase || "playlist") + ".json";
+      a.download = name + ".json";
       a.click();
       URL.revokeObjectURL(url);
     } catch (e) {

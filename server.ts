@@ -72,7 +72,7 @@ serve({
 
     // 导出歌单
     if (url.pathname === "/export" && req.method === "POST") {
-      const { platform, urlLike } = await parseJsonBody(req);
+      const { platform, urlLike, name } = await parseJsonBody(req);
       const p = getPlatform(platform);
       if (!p) {
         return new Response(JSON.stringify({ error: "平台不存在" }), {
@@ -83,16 +83,20 @@ serve({
       try {
         const res = await p.importMusicSheet(urlLike);
         const platform_code = platformShort[platform];
-        let result = [];
+        let musics = [];
         for (const item of res) {
           const id = item.songmid || item.id;
-          result.push({
+          musics.push({
             name: `${item.artist}-${item.title}`,
             url: `https://lxmusicapi.onrender.com/url/${platform_code}/${id}/320k`,
             headers: {
               "X-Request-Key": "share-v2"
             }
           });
+        }
+        const result = {
+          name: name,
+          musics: musics
         }
         return new Response(JSON.stringify(result, null, 2), {
           headers: {

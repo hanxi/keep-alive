@@ -1,5 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import PlaylistExporter from "./App.jsx";
+import MainApp from "./MainApp";
 
-createRoot(document.getElementById("root")).render(<PlaylistExporter />);
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(<MainApp />);
