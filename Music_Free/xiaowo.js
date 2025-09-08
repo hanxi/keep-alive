@@ -339,7 +339,7 @@ async function importMusicSheet(urlLike) {
     var _a, _b;
     let id;
     if (!id) {
-        id = (_a = urlLike.match(/https?:\/\/www\/kuwo\.cn\/playlist_detail\/(\d+)/)) === null || _a === void 0 ? void 0 : _a[1];
+        id = (_a = urlLike.match(/https?:\/\/www\.kuwo\.cn\/playlist_detail\/(\d+)/)) === null || _a === void 0 ? void 0 : _a[1];
     }
     if (!id) {
         id = (_b = urlLike.match(/https?:\/\/m\.kuwo\.cn\/h5app\/playlist\/(\d+)/)) === null || _b === void 0 ? void 0 : _b[1];
@@ -360,7 +360,7 @@ async function importMusicSheet(urlLike) {
             if (isNaN(totalPage)) {
                 totalPage = 1;
             }
-            musicList = musicList.concat(data.musicList.map((_) => ({
+            musicList = musicList.concat(data.musiclist.map((_) => ({
                 id: _.id,
                 title: he.decode(_.name || ""),
                 artist: he.decode(_.artist || ""),
