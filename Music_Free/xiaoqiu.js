@@ -313,6 +313,9 @@ async function importMusicSheet(urlLike) {
         id = (urlLike.match(/https?:\/\/i\.y\.qq\.com\/n2\/m\/share\/details\/taoge\.html\?.*id=([0-9]+)/) || [])[1];
     }
     if (!id) {
+        id = (urlLike.match(/https?:\/\/i2\.y\.qq\.com\/n3\/.*id=([0-9]+)/) || [])[1];
+    }
+    if (!id) {
         id = (urlLike.match(/https?:\/\/y\.qq\.com\/n\/ryqq\/playlist\/([0-9]+)/) ||
             [])[1];
     }
