@@ -96,10 +96,12 @@ serve({
             }
           });
         }
-        const result = {
-          name: name,
-          musics: musics
-        }
+        const result = [
+          {
+            name: name,
+            musics: musics
+          }
+        ]
         return new Response(JSON.stringify(result, null, 2), {
           headers: {
             "Content-Type": "application/json",
