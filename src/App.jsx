@@ -7,6 +7,7 @@ export default function PlaylistExporter() {
   const [urlLike, setUrlLike] = useState("");
   const [fileNameBase, setFileNameBase] = useState("网络歌单");
   const [loading, setLoading] = useState(false);
+  const [apiUrlBase, setApiUrlBase] = useState("https://lxmusicapi.onrender.com")
 
   useEffect(() => {
     fetch("/platforms")
@@ -34,10 +35,11 @@ export default function PlaylistExporter() {
     setLoading(true);
     try {
       const name = fileNameBase || "网络歌单";
+      const urlBase = apiUrlBase.replace(/\/$/i, "");
       const res = await fetch("/export", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ platform: selected, urlLike, name }),
+        body: JSON.stringify({ platform: selected, urlLike, name, urlBase }),
       });
       if (!res.ok) throw new Error(await res.text());
       const blob = await res.blob();
@@ -124,6 +126,17 @@ export default function PlaylistExporter() {
             <span className="text-gray-600 text-base select-none">.json</span>
           </div>
           <span className="text-xs text-gray-500">只填文件名，不需要加后缀，系统自动补全 .json</span>
+        </div>
+        <div>
+          <label className="block mb-1 font-medium">LX接口地址</label>
+          <div className="flex items-center gap-1">
+            <input
+              className="w-full border rounded px-3 py-2"
+              placeholder="playlist"
+              value={apiUrlBase}
+              onChange={(e) => setApiUrlBase(e.target.value)}
+            />
+          </div>
         </div>
         <button
           className="

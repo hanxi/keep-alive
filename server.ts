@@ -74,7 +74,7 @@ serve({
 
     // 导出歌单
     if (url.pathname === "/export" && req.method === "POST") {
-      const { platform, urlLike, name } = await parseJsonBody(req);
+      const { platform, urlLike, name, urlBase } = await parseJsonBody(req);
       const p = getPlatform(platform);
       if (!p) {
         return new Response(JSON.stringify({ error: "平台不存在" }), {
@@ -90,7 +90,7 @@ serve({
           const id = item.songmid || item.id;
           musics.push({
             name: `${item.artist}-${item.title}`,
-            url: `https://lxmusicapi.onrender.com/url/${platform_code}/${id}/320k`,
+            url: `${urlBase}/url/${platform_code}/${id}/320k`,
             api: true,
             headers: {
               "X-Request-Key": "share-v2"

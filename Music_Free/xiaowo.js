@@ -342,6 +342,9 @@ async function importMusicSheet(urlLike) {
         id = (_a = urlLike.match(/https?:\/\/www\.kuwo\.cn\/playlist_detail\/(\d+)/)) === null || _a === void 0 ? void 0 : _a[1];
     }
     if (!id) {
+        id = (_a = urlLike.match(/https?:\/\/kuwo\.cn\/playlist_detail\/(\d+)/)) === null || _a === void 0 ? void 0 : _a[1];
+    }
+    if (!id) {
         id = (_b = urlLike.match(/https?:\/\/m\.kuwo\.cn\/h5app\/playlist\/(\d+)/)) === null || _b === void 0 ? void 0 : _b[1];
     }
     if (!id) {
@@ -350,6 +353,7 @@ async function importMusicSheet(urlLike) {
     if (!id) {
         return;
     }
+    console.log(id);
     let page = 1;
     let totalPage = 30;
     let musicList = [];
