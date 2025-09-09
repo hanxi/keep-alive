@@ -2,7 +2,12 @@
 
 ## 零
 
-如何启动看 `start.sh` 脚本
+如何启动看 `start.sh` 脚本。
+
+- 体验地址： <https://kn.xiaomusic.dpdns.org/>
+- LX接口地址：
+  - 只能听非会员歌曲： <https://lx.xiaomusic.dpdns.org/>
+  - 可以听会员歌曲： <https://lxmusicapi.onrender.com>
 
 ## 一. 注意
 
